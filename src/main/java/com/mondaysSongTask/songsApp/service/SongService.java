@@ -1,5 +1,6 @@
 package com.mondaysSongTask.songsApp.service;
 
+import com.mondaysSongTask.songsApp.controller.dto.SongNewDto;
 import com.mondaysSongTask.songsApp.model.Song;
 import com.mondaysSongTask.songsApp.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +16,9 @@ public class SongService {
 
     public List<Song> getSongs() {
         return songRepository.findAll();
+    }
+
+    public Song addSong(Song song) {
+        return songRepository.save(song);
     }
 }

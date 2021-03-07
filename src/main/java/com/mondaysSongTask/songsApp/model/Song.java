@@ -1,17 +1,14 @@
 package com.mondaysSongTask.songsApp.model;
 
 import com.mondaysSongTask.songsApp.model.util.SongCategoryEnum;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Song {
 
     @Id
@@ -20,6 +17,7 @@ public class Song {
     private String title;
     private String author;
     private String album;
+    @Enumerated(EnumType.STRING)
     private SongCategoryEnum category;
     private Long votes;
 

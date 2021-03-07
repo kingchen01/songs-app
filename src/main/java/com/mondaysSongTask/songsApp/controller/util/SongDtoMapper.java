@@ -12,13 +12,13 @@ public class SongDtoMapper {
 
     }
 
-    public static List<SongDto> mapToSongDtos(List<Song> songs) {
+    public static List<SongDto> mapToDtos(List<Song> songs) {
         return songs.stream()
-                .map(SongDtoMapper::mapToSongDto)
+                .map(SongDtoMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
-    private static SongDto mapToSongDto(Song song) {
+    public static SongDto mapToDto(Song song) {
         return SongDto.builder()
                 .id(song.getId())
                 .title(song.getTitle())
