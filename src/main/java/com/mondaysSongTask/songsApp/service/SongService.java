@@ -4,7 +4,7 @@ import com.mondaysSongTask.songsApp.controller.dto.SongDto;
 import com.mondaysSongTask.songsApp.controller.dto.SongNewDto;
 import com.mondaysSongTask.songsApp.controller.util.SongDtoMapper;
 import com.mondaysSongTask.songsApp.controller.util.SongNewDtoMapper;
-import com.mondaysSongTask.songsApp.controller.util.SongValidator;
+import com.mondaysSongTask.songsApp.service.util.SongValidator;
 import com.mondaysSongTask.songsApp.model.Song;
 import com.mondaysSongTask.songsApp.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +18,16 @@ import java.util.List;
 public class SongService {
 
     private final SongRepository songRepository;
+    private final SongValidator songValidator;
 
     public List<Song> getSongs() {
         return songRepository.findAll();
     }
 
     public SongDto addSong(SongNewDto songNewDto) {
-        SongValidator.validateSong(songNewDto);
+        songValidator.validateString(songNewDto.getTitle());
+        songValidator.validateString(songNewDto.getAlbum());
+        songValidator.validateString(songNewDto.getAuthor());
         Song song = SongNewDtoMapper.mapToEntity(songNewDto);
         Song songCreated = songRepository.save(song);
         return SongDtoMapper.mapToDto(songCreated);
