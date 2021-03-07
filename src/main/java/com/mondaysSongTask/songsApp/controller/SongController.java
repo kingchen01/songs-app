@@ -33,6 +33,17 @@ public class SongController {
         }
     }
 
+    @PutMapping("/songs/{songId}/vote")
+    public SongDto increaseSongVotes(@PathVariable Long songId) {
+        try {
+            return songService.increaseSongVotes(songId);
+        }
+        catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Song Id not found in DB", ex);
+        }
+    }
+
     @DeleteMapping("/songs/{songId}")
     public void deleteSong(@PathVariable Long songId) {
         try {

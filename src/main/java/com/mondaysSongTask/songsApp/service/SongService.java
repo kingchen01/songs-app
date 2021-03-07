@@ -35,4 +35,11 @@ public class SongService {
         songRepository.findById(songId).ifPresentOrElse(song -> songRepository.deleteById(song.getId()),
                 () -> { throw new IllegalArgumentException(); });
     }
+
+    @Transactional
+    public SongDto increaseSongVotes(Long songId) {
+        Song songEdited = songRepository.findById(songId).orElseThrow(IllegalArgumentException::new);
+        songEdited.setVotes(songEdited.getVotes() + 1);
+        return SongDtoMapper.mapToDto(songEdited);
+    }
 }
