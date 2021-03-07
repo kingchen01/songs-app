@@ -1,0 +1,1 @@
+insert into song(id, title, author, album, category, votes) values (1, 'Work Song', 'Hozier', 'Hozier', 'POP', '25');
