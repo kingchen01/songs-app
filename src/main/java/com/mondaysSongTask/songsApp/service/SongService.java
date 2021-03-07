@@ -1,5 +1,10 @@
 package com.mondaysSongTask.songsApp.service;
 
+import com.mondaysSongTask.songsApp.controller.dto.SongDto;
+import com.mondaysSongTask.songsApp.controller.dto.SongNewDto;
+import com.mondaysSongTask.songsApp.controller.util.SongDtoMapper;
+import com.mondaysSongTask.songsApp.controller.util.SongNewDtoMapper;
+import com.mondaysSongTask.songsApp.controller.util.SongValidator;
 import com.mondaysSongTask.songsApp.model.Song;
 import com.mondaysSongTask.songsApp.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +23,11 @@ public class SongService {
         return songRepository.findAll();
     }
 
-    public Song addSong(Song song) {
-        return songRepository.save(song);
+    public SongDto addSong(SongNewDto songNewDto) {
+        SongValidator.validateSong(songNewDto);
+        Song song = SongNewDtoMapper.mapToEntity(songNewDto);
+        Song songCreated = songRepository.save(song);
+        return SongDtoMapper.mapToDto(songCreated);
     }
 
     @Transactional

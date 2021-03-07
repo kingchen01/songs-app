@@ -3,8 +3,6 @@ package com.mondaysSongTask.songsApp.controller;
 import com.mondaysSongTask.songsApp.controller.dto.SongNewDto;
 import com.mondaysSongTask.songsApp.controller.dto.SongDto;
 import com.mondaysSongTask.songsApp.controller.util.SongDtoMapper;
-import com.mondaysSongTask.songsApp.controller.util.SongNewDtoMapper;
-import com.mondaysSongTask.songsApp.model.Song;
 import com.mondaysSongTask.songsApp.service.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,9 +24,13 @@ public class SongController {
 
     @PostMapping("/songs")
     public SongDto addSong(@RequestBody SongNewDto songNewDto) {
-        Song song = SongNewDtoMapper.mapToEntity(songNewDto);
-        Song songCreated = songService.addSong(song);
-        return SongDtoMapper.mapToDto(songCreated);
+        try {
+            return songService.addSong(songNewDto);
+        }
+        catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "", ex);
+        }
     }
 
     @DeleteMapping("/songs/{songId}")
