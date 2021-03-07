@@ -16,10 +16,11 @@ import java.util.List;
 public class SongController {
 
     private final SongService songService;
+    private final SongDtoMapper songDtoMapper;
 
     @GetMapping("/songs")
     public List<SongDto> getSongs() {
-        return SongDtoMapper.mapToDtos(songService.getSongs());
+        return songDtoMapper.mapToDtos(songService.getSongs());
     }
 
     @PostMapping("/songs")

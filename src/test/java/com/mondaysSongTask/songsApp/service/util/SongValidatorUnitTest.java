@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class SongValidatorTest {
+public class SongValidatorUnitTest {
 
     @Autowired
     private SongValidator songValidator;

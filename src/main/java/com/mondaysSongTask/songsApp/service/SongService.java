@@ -19,6 +19,8 @@ public class SongService {
 
     private final SongRepository songRepository;
     private final SongValidator songValidator;
+    private final SongDtoMapper songDtoMapper;
+    private final SongNewDtoMapper songNewDtoMapper;
 
     public List<Song> getSongs() {
         return songRepository.findAll();
@@ -28,9 +30,9 @@ public class SongService {
         songValidator.validateString(songNewDto.getTitle());
         songValidator.validateString(songNewDto.getAlbum());
         songValidator.validateString(songNewDto.getAuthor());
-        Song song = SongNewDtoMapper.mapToEntity(songNewDto);
+        Song song = songNewDtoMapper.mapToEntity(songNewDto);
         Song songCreated = songRepository.save(song);
-        return SongDtoMapper.mapToDto(songCreated);
+        return songDtoMapper.mapToDto(songCreated);
     }
 
     @Transactional
@@ -43,6 +45,6 @@ public class SongService {
     public SongDto increaseSongVotes(Long songId) {
         Song songEdited = songRepository.findById(songId).orElseThrow(IllegalArgumentException::new);
         songEdited.setVotes(songEdited.getVotes() + 1);
-        return SongDtoMapper.mapToDto(songEdited);
+        return songDtoMapper.mapToDto(songEdited);
     }
 }
