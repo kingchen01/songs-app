@@ -1,11 +1,11 @@
 package com.mondaysSongTask.songsApp.service;
 
-import com.mondaysSongTask.songsApp.controller.dto.SongNewDto;
 import com.mondaysSongTask.songsApp.model.Song;
 import com.mondaysSongTask.songsApp.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -20,5 +20,11 @@ public class SongService {
 
     public Song addSong(Song song) {
         return songRepository.save(song);
+    }
+
+    @Transactional
+    public void deleteSong(Long songId)   {
+        songRepository.findById(songId).ifPresentOrElse(song -> songRepository.deleteById(song.getId()),
+                () -> { throw new IllegalArgumentException(); });
     }
 }
