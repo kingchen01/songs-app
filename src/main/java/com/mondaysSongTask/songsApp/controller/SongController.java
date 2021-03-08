@@ -2,7 +2,6 @@ package com.mondaysSongTask.songsApp.controller;
 
 import com.mondaysSongTask.songsApp.controller.dto.SongNewDto;
 import com.mondaysSongTask.songsApp.controller.dto.SongDto;
-import com.mondaysSongTask.songsApp.controller.util.SongDtoMapper;
 import com.mondaysSongTask.songsApp.service.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,11 +15,10 @@ import java.util.List;
 public class SongController {
 
     private final SongService songService;
-    private final SongDtoMapper songDtoMapper;
 
     @GetMapping("/songs")
     public List<SongDto> getSongs() {
-        return songDtoMapper.mapToDtos(songService.getSongs());
+        return songService.getSongs();
     }
 
     @PostMapping("/songs")

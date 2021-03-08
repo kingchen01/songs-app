@@ -22,8 +22,8 @@ public class SongService {
     private final SongDtoMapper songDtoMapper;
     private final SongNewDtoMapper songNewDtoMapper;
 
-    public List<Song> getSongs() {
-        return songRepository.findAll();
+    public List<SongDto> getSongs() {
+        return songDtoMapper.mapToDtos(songRepository.findAll());
     }
 
     public SongDto addSong(SongNewDto songNewDto) {
