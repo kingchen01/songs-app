@@ -2,13 +2,11 @@ package com.mondaysSongTask.songsApp.controller.util;
 
 import com.mondaysSongTask.songsApp.controller.dto.SongDto;
 import com.mondaysSongTask.songsApp.model.Song;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
 @Component
 public class SongDtoMapper {
 
