@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class SongService {
 
     private final SongRepository songRepository;
-    private final SongValidator songValidator;
     private final SongDtoMapper songDtoMapper;
     private final SongNewDtoMapper songNewDtoMapper;
 
@@ -27,9 +27,6 @@ public class SongService {
     }
 
     public SongDto addSong(SongNewDto songNewDto) {
-        songValidator.validateString(songNewDto.getTitle());
-        songValidator.validateString(songNewDto.getAlbum());
-        songValidator.validateString(songNewDto.getAuthor());
         Song song = songNewDtoMapper.mapToEntity(songNewDto);
         Song songCreated = songRepository.save(song);
         return songDtoMapper.mapToDto(songCreated);
